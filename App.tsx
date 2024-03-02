@@ -10,11 +10,17 @@ interface AppProps { }
 const App = (props: AppProps) => {
   const [ userNumber, setUserNumber ] = React.useState();
   const [ isGameOver, setIsGameOver ] = React.useState(true);
+  const [ guessRounds, setguessRounds ] = React.useState(0);
   const pickedNumberHandler = (pickedNumber) => {
     setUserNumber(pickedNumber);
     setIsGameOver(false);
   }
-  const onGameOverHandler = () => {
+  const onGameOverHandler = (number) => {
+    setIsGameOver(true);
+    setguessRounds(number);
+  }
+  const startNewGameHandler = () => {
+    setUserNumber(null);
     setIsGameOver(true);
   }
   let screen = <StartGameScreen onPickedNumber={pickedNumberHandler} />
@@ -23,7 +29,7 @@ const App = (props: AppProps) => {
     screen = <GameScreen userNumber={userNumber} onGameOver={onGameOverHandler} />
   }
   if (isGameOver && userNumber) {
-    screen = <GameOverScreen />
+    screen = <GameOverScreen onStartNewGame={startNewGameHandler} userNumber={userNumber} roundNumber={guessRounds} />
   }
 
   return (
@@ -34,10 +40,7 @@ const App = (props: AppProps) => {
         style={styles.rootScreen}
         imageStyle={styles.imgbgr}
       >
-
         {screen}
-
-
       </ImageBackground>
     </LinearGradient>
   );

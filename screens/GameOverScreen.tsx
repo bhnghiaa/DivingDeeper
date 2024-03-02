@@ -1,23 +1,25 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import Title from '../components/Title';
 import PrimaryButton from '../components/PrimatyButton';
-
+import Colors from '../constants/Colors';
 interface componentNameProps { }
 
-const GameOverScreen = () => {
+const GameOverScreen = ({ onStartNewGame, userNumber, roundNumber }) => {
     return (
         <View style={styles.container}>
             <Title>GAME OVER!</Title>
             <View style={styles.imgContainer}>
                 <Image source={require('../assets/success.jpg')} style={styles.img}></Image>
             </View>
-            <PrimaryButton onPress={undefined}>Start new game</PrimaryButton>
+            <Text style={styles.summaryText}>Your phone needed <Text style={styles.textlight}>{roundNumber}</Text> rounds to guess the number <Text style={styles.textlight}>{userNumber}</Text></Text>
+            <View style={styles.btnContainer}>
+                <PrimaryButton onPress={onStartNewGame}>Start a new game</PrimaryButton>
+            </View>
         </View>
     );
 };
 
-export default GameOverScreen;
 
 const styles = StyleSheet.create({
     container: {
@@ -25,7 +27,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 30,
-        gap: 50,
+        gap: 40,
     },
     imgContainer: {
         width: 300,
@@ -38,5 +40,19 @@ const styles = StyleSheet.create({
     img: {
         width: '100%',
         height: '100%',
+    },
+    btnContainer: {
+        flexDirection: 'row',
+        width: '60%',
+    },
+    summaryText: {
+        textAlign: 'center',
+        fontSize: 20,
+    },
+    textlight: {
+        color: Colors.primary1,
+        fontWeight: 'bold'
     }
 });
+
+export default GameOverScreen;

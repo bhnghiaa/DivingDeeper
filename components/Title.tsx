@@ -14,19 +14,19 @@ const Title = ({ children }) => {
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
+
     },
     title: {
         color: Colors.white,
         fontSize: 30,
         fontWeight: 'bold',
         textAlign: 'center',
-        paddingVertical: 10,
         borderWidth: 2,
         borderColor: Colors.white,
         marginTop: 80,
-        marginHorizontal: '15%',
-        paddingHorizontal: 10,
+        marginHorizontal: '12%',
+        paddingVertical: 12,
+        paddingHorizontal: 5,
     },
 });
 
