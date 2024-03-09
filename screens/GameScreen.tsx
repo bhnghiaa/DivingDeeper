@@ -21,17 +21,17 @@ const generateRandomNumber = (min: number, max: number, exclude: number) => {
 
 let minBoundary = 1;
 let maxBoundary = 100;
-const GameScreen = ({ userNumber, onGameOver }) => {
-
+const GameScreen = ({ route, navigation }) => {
+    const userNumber = route.params.userNumber;
     const initGuess = generateRandomNumber(1, 100, userNumber);
     const [ currentGuess, setcurrentGuess ] = React.useState(initGuess);
     const [ guessRounds, setguessRounds ] = React.useState([ initGuess ]);
 
     React.useEffect(() => {
         if (currentGuess === userNumber) {
-            onGameOver(guessRounds.length);
+            navigation.navigate('GameOver', { userNumber, roundNumber: guessRounds.length - 1 });
         }
-    }, [ currentGuess, userNumber, onGameOver ])
+    }, [ currentGuess, userNumber ])
     React.useEffect(() => {
         minBoundary = 1;
         maxBoundary = 100;

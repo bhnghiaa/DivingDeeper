@@ -5,44 +5,31 @@ import { LinearGradient } from 'expo-linear-gradient';
 import GameScreen from './screens/GameScreen';
 import Colors from './constants/Colors';
 import GameOverScreen from './screens/GameOverScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+
+const Stack = createNativeStackNavigator();
 interface AppProps { }
 
 const App = (props: AppProps) => {
-  const [ userNumber, setUserNumber ] = React.useState();
-  const [ isGameOver, setIsGameOver ] = React.useState(true);
-  const [ guessRounds, setguessRounds ] = React.useState(0);
-  const pickedNumberHandler = (pickedNumber) => {
-    setUserNumber(pickedNumber);
-    setIsGameOver(false);
-  }
-  const onGameOverHandler = (number) => {
-    setIsGameOver(true);
-    setguessRounds(number);
-  }
-  const startNewGameHandler = () => {
-    setUserNumber(null);
-    setIsGameOver(true);
-  }
-  let screen = <StartGameScreen onPickedNumber={pickedNumberHandler} />
-
-  if (userNumber) {
-    screen = <GameScreen userNumber={userNumber} onGameOver={onGameOverHandler} />
-  }
-  if (isGameOver && userNumber) {
-    screen = <GameOverScreen onStartNewGame={startNewGameHandler} userNumber={userNumber} roundNumber={guessRounds} />
-  }
 
   return (
-    <LinearGradient colors={[ Colors.primary2, Colors.accent ]} style={styles.rootScreen}>
-      <ImageBackground
-        source={require('./assets/background.jpg')}
-        resizeMode='cover'
-        style={styles.rootScreen}
-        imageStyle={styles.imgbgr}
-      >
-        {screen}
-      </ImageBackground>
-    </LinearGradient>
+    <NavigationContainer>
+      <LinearGradient colors={[ Colors.primary2, Colors.accent ]} style={styles.rootScreen}>
+        <ImageBackground
+          source={require('./assets/background.jpg')}
+          resizeMode='cover'
+          style={styles.rootScreen}
+          imageStyle={styles.imgbgr}
+        >
+          <Stack.Navigator screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" }, }}>
+            <Stack.Screen name="StartGame" component={StartGameScreen} />
+            <Stack.Screen name="Game" component={GameScreen} options={{ animation: 'slide_from_left' }} />
+            <Stack.Screen name="GameOver" component={GameOverScreen} options={{ animation: 'slide_from_left' }} />
+          </Stack.Navigator>
+        </ImageBackground>
+      </LinearGradient>
+    </NavigationContainer>
   );
 };
 

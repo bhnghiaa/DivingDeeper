@@ -6,10 +6,10 @@ interface GuessLogItemProps { }
 
 const GuessLogItem = ({ item, index }) => {
     return (
-
         <View style={styles.log}>
             <Text style={styles.logText}>#{index + 1}</Text>
             <Text style={styles.logText}>Opponent's Guess: {item}</Text>
+
         </View>
 
     );

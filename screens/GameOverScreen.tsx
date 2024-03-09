@@ -5,7 +5,10 @@ import PrimaryButton from '../components/PrimatyButton';
 import Colors from '../constants/Colors';
 interface componentNameProps { }
 
-const GameOverScreen = ({ onStartNewGame, userNumber, roundNumber }) => {
+const GameOverScreen = ({ navigation, route }) => {
+    const userNumber = route.params.userNumber;
+    const roundNumber = route.params.roundNumber;
+
     return (
         <View style={styles.container}>
             <Title>GAME OVER!</Title>
@@ -14,7 +17,7 @@ const GameOverScreen = ({ onStartNewGame, userNumber, roundNumber }) => {
             </View>
             <Text style={styles.summaryText}>Your phone needed <Text style={styles.textlight}>{roundNumber}</Text> rounds to guess the number <Text style={styles.textlight}>{userNumber}</Text></Text>
             <View style={styles.btnContainer}>
-                <PrimaryButton onPress={onStartNewGame}>Start a new game</PrimaryButton>
+                <PrimaryButton onPress={() => navigation.navigate('StartGame')}>Start a new game</PrimaryButton>
             </View>
         </View>
     );

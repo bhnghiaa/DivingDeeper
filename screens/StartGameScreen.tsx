@@ -7,7 +7,7 @@ import Title from '../components/Title';
 
 
 
-const StartGameScreen = ({ onPickedNumber }) => {
+const StartGameScreen = ({ navigation }) => {
     const [ enteredNumber, setEnteredNumber ] = useState('');
     const numberHandler = (enterdText) => {
         setEnteredNumber(enterdText);
@@ -25,7 +25,8 @@ const StartGameScreen = ({ onPickedNumber }) => {
                 [ { text: 'Okay', style: 'destructive', onPress: resetHandler } ]);
         }
         else {
-            onPickedNumber(chosenNumber);
+            navigation.navigate('Game', { userNumber: chosenNumber });
+            setEnteredNumber('');
         }
     }
 
